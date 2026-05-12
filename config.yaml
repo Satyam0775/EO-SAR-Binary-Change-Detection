@@ -1,0 +1,47 @@
+dataset:
+  train_dir: data/train
+  val_dir: data/val
+  test_dir: data/test
+  image_size: 256
+  num_workers: 0
+
+model:
+  architecture: siamese_unet
+  in_channels: 3
+  base_filters: 16
+
+training:
+  epochs: 5
+  batch_size: 4
+  learning_rate: 0.0003
+  optimizer: adamw
+  scheduler: cosine
+  scheduler_T_max: 5
+  weight_decay: 0.0001
+  gradient_clip: 1.0
+  early_stopping_patience: 5
+  resume_checkpoint: null
+
+loss:
+  type: bce_dice
+  bce_weight: 0.5
+  dice_weight: 0.5
+  pos_weight: 62.71
+
+augmentation:
+  enabled: true
+  horizontal_flip: true
+  vertical_flip: true
+  random_rotate_90: true
+  random_brightness_contrast: true
+  gaussian_noise: true
+
+outputs:
+  checkpoint_dir: outputs/checkpoints
+  predictions_dir: outputs/predictions
+  logs_dir: outputs/logs
+  viz_dir: outputs/visualizations
+  best_model_name: best_model.pth
+  last_model_name: last_model.pth
+
+seed: 42
